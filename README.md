@@ -1,4 +1,5 @@
-# 🎮 I Love This Game
+# 🎮 I Love This Game 
+## Фото оригинала (I hate this game):
 
 
 <img src="https://newcdn.igromania.ru/mnt/game_screenshots_gallery/3/c/e/f/1/1020519/4e14ab9ae5f457ea_original.jpg" 
