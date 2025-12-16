@@ -1,19 +1,34 @@
-from draw import Draw
-from gameengine import GameEngine
+from block import Platform
+from draw import Draw, PLAYER_SIZE
+from gameengine import GameEngine, SHAPE
 from move import Move
+from physics import Physics
 from player import Player
 from vector import Vector2, Vector2Int
 import arcade
 
 
 TITLE = 'I love this game'
-SHAPE = Vector2Int(1500, 700)
+
+GRAVITY = 3000
+PLAYER_VELOCITY = 400
+SPAWN_POSITION = Vector2(200, 300)
 
 
 def main() -> None:
-    player = Player(Vector2(100, 100), 100)
+    player_physics = Physics(
+            position=SPAWN_POSITION,
+            width=PLAYER_SIZE.x + 2,
+            height=PLAYER_SIZE.y + 2,
+            gravity=GRAVITY
+        )
+
+    player = Player(player_physics, PLAYER_VELOCITY)
     game = GameEngine(TITLE, SHAPE, Draw(), player)
     game.keyboard_state_changed.subscribe(lambda keys: player.set_direction(Move.keys_to_direction(keys)))
+    game.keyboard_state_changed.subscribe(
+        lambda keys: player.jump() if Move.should_jump(keys) else None
+    )
     arcade.run()
 
 

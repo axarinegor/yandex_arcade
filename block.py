@@ -1,25 +1,35 @@
 from abc import abstractmethod
 from dataclasses import dataclass
+from physics import Physics
 import protocols as proto
 import arcade
 from vector import Vector2, Vector2Int
 
-BLOCK_RADIUS = 30
+
+
+
 @dataclass
-class Block:
-    position: Vector2Int
-    radius: int = BLOCK_RADIUS
-    color: arcade.color = arcade.color.SKOBELOFF
-
+class Platform(proto.Platform):
+    physics: Physics
+    color: tuple = arcade.color.SKOBELOFF
+    
+    def __post_init__(self):
+        self.physics.is_active = False
+    
     @property
-    @abstractmethod
     def position(self) -> Vector2:
-        ...
-
-    def dis_to_player(self, player: proto.Player) -> Vector2:
-        return max(Vector2(0, 0), Vector2(*(self.position - player.position).tuple))
-        
-
-    @abstractmethod
+        return self.physics.position
+    
+    @property
+    def width(self) -> float:
+        return self.physics.width
+    
+    @property
+    def height(self) -> float:
+        return self.physics.height
+    
     def update(self, dt: float) -> None:
-        ...
+        if self.physics.is_active:
+            self.physics.update(dt)
+    
+
