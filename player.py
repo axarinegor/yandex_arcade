@@ -1,5 +1,5 @@
 from abc import ABC
-from physics import Physics
+from physics import Physics, SHAPE, SPAWN_POSITION
 from vector import Vector2, Vector2Int
 from dataclasses import dataclass, field
 import protocols as proto
@@ -60,3 +60,4 @@ class Player(proto.Player):
                         break
             
             self.physics.on_ground = is_on_platform
+        

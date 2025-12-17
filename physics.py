@@ -1,7 +1,10 @@
 from dataclasses import dataclass, field
-from vector import Vector2
+from vector import Vector2, Vector2Int
 
 JUMP_VELOCITY = 1100
+SHAPE = Vector2Int(1250, 650)
+SPAWN_POSITION = Vector2(200, 300)
+BLOCK_HEIGHT = 50
 
 @dataclass
 class Physics:
@@ -73,6 +76,8 @@ class Physics:
             self.velocity = Vector2(self.velocity.x, -self.max_fall_speed)
         
         self.position += self.velocity * dt
+        if (self.position.y < -100):
+            self.position = SPAWN_POSITION
     
     def check_collision(self, other: 'Physics') -> tuple[bool, str, float]:
         left1, right1, bottom1, top1 = self.bounds

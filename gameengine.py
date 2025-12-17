@@ -2,13 +2,14 @@ from block import Platform
 from draw import Draw, PLAYER_SIZE
 from observer import Event, OnEventSubscriber
 import arcade
-from physics import Physics
+from physics import Physics, SHAPE, SPAWN_POSITION, BLOCK_HEIGHT
 from vector import Vector2, Vector2Int
 import protocols as proto
+from door import Door
 #from block import Platform
 
-SHAPE = Vector2Int(1250, 650)
-BLOCK_HEIGHT = 50
+
+
 
 class GameEngine(arcade.Window):
     def __init__(self,
@@ -16,6 +17,7 @@ class GameEngine(arcade.Window):
                  screen_shape: Vector2Int,
                  draw: Draw,
                  player: proto.Player
+                 #door_is_open: bool
                  ) -> None:
         super().__init__(screen_shape.x, screen_shape.y, title, vsync=True)
         self._platforms = [
@@ -53,10 +55,15 @@ class GameEngine(arcade.Window):
                 position=Vector2(SHAPE.x // 2, SHAPE.y - BLOCK_HEIGHT // 2),
                 width=SHAPE.x,
                 height=BLOCK_HEIGHT
+            )),
+            Platform(physics=Physics(
+                position=Vector2(2, BLOCK_HEIGHT * 2),
+                width=4,
+                height=BLOCK_HEIGHT * 2
             ))
         ]
         self.background_color = arcade.color.CARIBBEAN_GREEN
-        
+        #self._door = Door(physics=Physics(SHAPE.x - BLOCK_HEIGHT + 5, 100, 10, 100), is_open=door_is_open)
         self._player = player
         self._draw = draw
         self.pressed_keys = set[int]()
@@ -99,3 +106,4 @@ class GameEngine(arcade.Window):
         self._draw.player(self._player)
         for platform in self._platforms:
             self._draw.platform(platform)
+        #self._draw.door(self._door)

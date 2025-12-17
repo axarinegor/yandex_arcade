@@ -31,3 +31,13 @@ class Draw:
             height=platform.height,
             color=platform.color
         )
+
+    def door(self, door: proto.Door) -> None:
+        arcade.draw_lbwh_rectangle_filled(
+            left=door.position.x - door.width // 2,
+            bottom=door.position.y - door.height // 2,
+            width=door.width,
+            height=door.height,
+            color=door.color
+        )
+

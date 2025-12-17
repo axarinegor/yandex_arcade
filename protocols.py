@@ -45,3 +45,24 @@ class Platform(ABC):
     @abstractmethod
     def update(self, dt: float) -> None:
         ...
+
+
+class Door(ABC): 
+    @property
+    @abstractmethod
+    def position(self) -> Vector2:
+        ...
+    
+    @property
+    @abstractmethod
+    def width(self) -> float:
+        ...
+    
+    @property
+    @abstractmethod
+    def height(self) -> float:
+        ...
+    
+    @abstractmethod
+    def update(self, dt: float) -> None:
+        ...
