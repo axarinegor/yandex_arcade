@@ -6,12 +6,13 @@ import arcade
 from vector import Vector2, Vector2Int
 from physics import SHAPE, Physics, BLOCK_HEIGHT
 
-
+@dataclass
 class Door(): 
-    '''is_open: bool = False
     physics: Physics
+    is_open: bool = False
     color: arcade.color = arcade.color.BLACK_OLIVE
-    '''
+    
+    @property
     def position(self) -> Vector2:
         return self.physics.position 
     
@@ -24,6 +25,5 @@ class Door():
         return self.physics.height
     
     def update(self, dt: float) -> None:
-        '''if self.is_open == True:
-            self.physics = Physics(SHAPE.x - BLOCK_HEIGHT // 2, 100, BLOCK_HEIGHT, 100)'''
-        ...
+        if self.is_open == True:
+            self.physics = Physics(SHAPE.x - BLOCK_HEIGHT // 2, 100, BLOCK_HEIGHT, 100)

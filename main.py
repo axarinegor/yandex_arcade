@@ -1,11 +1,11 @@
-from block import Platform
+#from block import Platform
 from draw import Draw, PLAYER_SIZE
-from gameengine import GameEngine, SHAPE
+from gameengine import GameEngine
 from move import Move
-from physics import Physics, SPAWN_POSITION
+from physics import SHAPE, Physics, SPAWN_POSITION
 from player import Player
-from vector import Vector2, Vector2Int
-from door import Door
+#from vector import Vector2, Vector2Int
+#from door import Door
 import arcade
 
 
@@ -25,8 +25,7 @@ def main() -> None:
         )
 
     player = Player(player_physics, PLAYER_VELOCITY)
-    #door = Door()
-    game = GameEngine(TITLE, SHAPE, Draw(), player)
+    game = GameEngine(TITLE, SHAPE, Draw(), player, True)
     game.keyboard_state_changed.subscribe(lambda keys: player.set_direction(Move.keys_to_direction(keys)))
     game.keyboard_state_changed.subscribe(
         lambda keys: player.jump() if Move.should_jump(keys) else None

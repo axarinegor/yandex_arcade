@@ -5,13 +5,12 @@ import protocols as proto
 import arcade
 from vector import Vector2, Vector2Int
 
-
-
+BLOCK_COLOR = arcade.color.SKOBELOFF
 
 @dataclass
 class Platform(proto.Platform):
     physics: Physics
-    color: tuple = arcade.color.SKOBELOFF
+    color: tuple = BLOCK_COLOR
     
     def __post_init__(self):
         self.physics.is_active = False
