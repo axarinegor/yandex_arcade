@@ -7,7 +7,7 @@ class Player(ABC):
     @property
     @abstractmethod
     def position(self) -> Vector2:
-        return self.physics.position
+        ...
     
     @abstractmethod
     def set_direction(self, direction: Vector2) -> None:
@@ -43,7 +43,7 @@ class Platform(ABC):
         ...
     
     @abstractmethod
-    def update(self, dt: float) -> None:
+    def update(self, dt: float, platforms: list = None) -> None:
         ...
 
 
