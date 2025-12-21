@@ -37,7 +37,7 @@ V
 
 V
 
-<img width="400" alt="Снимок экрана 2025-12-21 132300" src="https://github.com/user-attachments/assets/826baaf0-7cdf-4376-b0c7-a1aa30a31b65" />
+<img width="400" alt="Снимок экрана 2025-12-21 142620" src="https://github.com/user-attachments/assets/ff37a27e-7a06-409a-950b-fdd56e96f93e" />
 
 
 ### 🎮 **Типы уровней:**
