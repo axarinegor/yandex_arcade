@@ -1,3 +1,5 @@
+import pyglet
+from physics import BLOCK_HEIGHT
 from vector import Vector2Int
 import arcade
 from dataclasses import dataclass
@@ -43,4 +45,36 @@ class Draw:
             height=door.height,
             color=door.color
         )
+
+    def texture_wall(self, platform: proto.Platform, texture: arcade.Texture) -> None:
+        tiles_y_count = int(platform.height / BLOCK_HEIGHT)
+        tiles_x_count = int(platform.width / BLOCK_HEIGHT)
+        
+        start_x = platform.position.x - platform.width / 2 + BLOCK_HEIGHT / 2
+        start_y = platform.position.y - platform.height / 2 + BLOCK_HEIGHT / 2
+    
+        for j in range(tiles_x_count):
+            for i in range(tiles_y_count):
+                pos_x = start_x + j * BLOCK_HEIGHT
+                pos_y = start_y + i * BLOCK_HEIGHT
+                arcade.draw_texture_rect(
+                    texture=texture,
+                    rect=arcade.rect.XYWH(x=pos_x, 
+                                        y=pos_y, 
+                                        width=BLOCK_HEIGHT, 
+                                        height=BLOCK_HEIGHT)
+                )
+    def default_text(self) -> None:
+        pyglet.font.add_file("data/Pixel_fonc.otf")
+        self._text_obj = arcade.Text(
+            text="Привет друг!",
+            x=400,
+            y=400,
+            color=arcade.color.BLACK,
+            font_size=24,
+            font_name="Digital Upscaled Pixel"
+        )
+        self._text_obj.draw()
+
+            
 

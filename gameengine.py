@@ -7,6 +7,8 @@ from physics import BLOCK_HEIGHT, SHAPE, Physics
 from vector import Vector2, Vector2Int
 import protocols as proto
 from door import Door
+from gamerules import GameRules
+from level_pattern import Lev_Patterns
 #from block import Platform
 
 
@@ -23,6 +25,10 @@ class GameEngine(arcade.Window):
         super().__init__(screen_shape.x, screen_shape.y, title, vsync=True)
         self._platforms = [i for i in Lev_Patterns.get_default()]
         self.background_color = arcade.color.CARIBBEAN_GREEN
+        self.block_texture = Lev_Patterns.get_default_block()
+        self._exit_position = Vector2(SHAPE.x - 15, BLOCK_HEIGHT + PLAYER_SIZE.y // 2)
+
+
         if not door_is_open:
             _pos_x = SHAPE.x - BLOCK_HEIGHT + 5
             _width = 10
@@ -34,7 +40,7 @@ class GameEngine(arcade.Window):
                                     height=PLAYER_SIZE.y + 16
                                 )
         left_door_physics = Physics(position=Vector2(BLOCK_HEIGHT // 2, BLOCK_HEIGHT + PLAYER_SIZE.y // 2 + 7),
-                                    width=_width,
+                                    width=BLOCK_HEIGHT,
                                     height=PLAYER_SIZE.y + 16
                                 )
         self._door = Door(physics=door_physics, is_open=door_is_open)
@@ -66,6 +72,8 @@ class GameEngine(arcade.Window):
             self._player.update(delta_time, all_collision_objects) 
             return
         self._player.update(delta_time, self._platforms) 
+        if GameRules.check_level_completion(self._player, self._exit_position):
+            GameRules.exit_game()
 
     '''def on_mouse_press(self, x: int, y: int, button: int, modifiers: int) -> None:
         if button != arcade.MOUSE_BUTTON_LEFT:
@@ -85,5 +93,7 @@ class GameEngine(arcade.Window):
         self._draw.player(self._player)
         for platform in self._platforms:
             self._draw.platform(platform)
+            self._draw.texture_wall(platform, self.block_texture)
         self._draw.door(self._door)
         self._draw.door(self._left_door)
+        self._draw.default_text()
