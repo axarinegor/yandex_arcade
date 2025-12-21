@@ -66,5 +66,10 @@ class Lev_Patterns:
         assert texture_path.exists()
         return arcade.load_texture(texture_path)
     
+    def get_default_door() -> arcade.Texture:
+        texture_path = Path("data/door.jpg")
+        assert texture_path.exists()
+        return arcade.load_texture(texture_path)
+    
     
     

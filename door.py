@@ -10,7 +10,7 @@ from physics import SHAPE, Physics, BLOCK_HEIGHT
 class Door(): 
     physics: Physics
     is_open: bool = False
-    color: arcade.color = arcade.color.BLACK_OLIVE
+    color: arcade.color = (30, 105, 75)
     
     @property
     def position(self) -> Vector2:

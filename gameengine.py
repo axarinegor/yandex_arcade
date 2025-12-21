@@ -1,5 +1,6 @@
 from block import Platform
 from draw import Draw, PLAYER_SIZE
+from texts import *
 from level_pattern import Lev_Patterns
 from observer import Event, OnEventSubscriber
 import arcade
@@ -10,8 +11,6 @@ from door import Door
 from gamerules import GameRules
 from level_pattern import Lev_Patterns
 #from block import Platform
-
-
 
 
 class GameEngine(arcade.Window):
@@ -94,6 +93,7 @@ class GameEngine(arcade.Window):
         for platform in self._platforms:
             self._draw.platform(platform)
             self._draw.texture_wall(platform, self.block_texture)
-        self._draw.door(self._door)
-        self._draw.door(self._left_door)
-        self._draw.default_text()
+        self._draw.door(self._door, Lev_Patterns.get_default_door())
+        self._draw.door(self._left_door, Lev_Patterns.get_default_door())
+        self._draw.texts(LEVEL_1)
+        

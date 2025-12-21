@@ -25,7 +25,7 @@ def main() -> None:
         )
 
     player = Player(player_physics, PLAYER_VELOCITY)
-    game = GameEngine(TITLE, SHAPE, Draw(), player, True)
+    game = GameEngine(TITLE, SHAPE, Draw(), player, False)
     game.keyboard_state_changed.subscribe(lambda keys: player.set_direction(Move.keys_to_direction(keys)))
     game.keyboard_state_changed.subscribe(
         lambda keys: player.jump() if Move.should_jump(keys) else None

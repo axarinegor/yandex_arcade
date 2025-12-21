@@ -10,6 +10,7 @@ PLAYER_SIZE = Vector2Int(40, 68)
 PLAYER_COLOR = arcade.color.SILVER_CHALICE
 PLAYER_BORDER_COLOR = arcade.color.BLACK
 
+
 @dataclass
 class Draw:
     def player(self, player: dict) -> None:
@@ -37,14 +38,23 @@ class Draw:
             color=platform.color
         )
 
-    def door(self, door: proto.Door) -> None:
-        arcade.draw_lbwh_rectangle_filled(
-            left=door.position.x - door.width // 2,
-            bottom=door.position.y - door.height // 2,
-            width=door.width,
-            height=door.height,
-            color=door.color
-        )
+    def door(self, door: proto.Door, texture) -> None:
+        if door.width > 10:
+            arcade.draw_texture_rect(
+                    texture=texture,
+                    rect=arcade.rect.LBWH(left=door.position.x - door.width // 2, 
+                                        bottom=door.position.y - door.height // 2, 
+                                        width=door.width, 
+                                        height=door.height)
+                )
+        else:    
+            arcade.draw_lbwh_rectangle_filled(
+                left=door.position.x - door.width // 2,
+                bottom=door.position.y - door.height // 2,
+                width=door.width,
+                height=door.height,
+                color=door.color
+            )
 
     def texture_wall(self, platform: proto.Platform, texture: arcade.Texture) -> None:
         tiles_y_count = int(platform.height / BLOCK_HEIGHT)
@@ -64,17 +74,11 @@ class Draw:
                                         width=BLOCK_HEIGHT, 
                                         height=BLOCK_HEIGHT)
                 )
-    def default_text(self) -> None:
-        pyglet.font.add_file("data/Pixel_fonc.otf")
-        self._text_obj = arcade.Text(
-            text="Привет друг!",
-            x=400,
-            y=400,
-            color=arcade.color.BLACK,
-            font_size=24,
-            font_name="Digital Upscaled Pixel"
-        )
-        self._text_obj.draw()
+    def texts(self, texts: list[arcade.Text]) -> None:
+        for text in texts:
+            text.draw()
+
+
 
             
 
