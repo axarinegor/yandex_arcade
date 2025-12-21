@@ -24,7 +24,7 @@ class GameEngine(arcade.Window):
                  ) -> None:
         super().__init__(screen_shape.x, screen_shape.y, title, vsync=True)
         self._platforms = [i for i in Lev_Patterns.get_default()]
-        self.background_color = arcade.color.CARIBBEAN_GREEN
+        self.background_color = (213, 255, 202)
         self.block_texture = Lev_Patterns.get_default_block()
         self._exit_position = Vector2(SHAPE.x - 15, BLOCK_HEIGHT + PLAYER_SIZE.y // 2)
 
