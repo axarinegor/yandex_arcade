@@ -534,7 +534,6 @@ class GameEngine_7(arcade.Window):
             )
 
 
-# В конце gameengine.py добавь:
 class GameEngineFactory:
     """Фабрика для создания уровней по номеру"""
     
@@ -579,29 +578,11 @@ LEVEL_MAPPING = {
     4: GameEngine_4,
     7: GameEngine_7,
     12: GameEngine_12,
-    # Добавляй новые уровни по мере создания:
-    # 13: GameEngine_13,
-    # 14: GameEngine_14,
 }
 
 
 
 def create_level(level_num: int, title: str, screen_shape, draw, player, **kwargs):
-    """
-    Создаёт уровень по номеру.
-    
-    Args:
-        level_num: Номер уровня (1, 2, 4, 7, 12...)
-        title: Заголовок окна
-        screen_shape: Размер экрана
-        draw: Объект отрисовки
-        player: Объект игрока
-        **kwargs: Дополнительные параметры (door_is_open и т.д.)
-    
-    Returns:
-        Экземпляр GameEngine для указанного уровня
-    """
-    # Получаем класс уровня
     level_class = LEVEL_MAPPING.get(level_num)
     
     if not level_class:
@@ -609,11 +590,10 @@ def create_level(level_num: int, title: str, screen_shape, draw, player, **kwarg
         level_num = 1
     
     
-    # Определяем параметры конструктора
-    if level_num in [1, 2, 7]:  # Уровни с параметром door_is_open
+    if level_num in [1, 2, 7]:
         door_open = kwargs.get('door_is_open', True)
         return level_class(title, screen_shape, draw, player, door_is_open=door_open)
-    else:  # Уровни без door_is_open
+    else: 
         return level_class(title, screen_shape, draw, player)
 
 
@@ -622,5 +602,4 @@ def get_available_levels() -> list[int]:
 
 
 def is_level_available(level_num: int) -> bool:
-    """Проверяет, существует ли уровень"""
     return level_num in LEVEL_MAPPING
