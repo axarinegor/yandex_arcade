@@ -1,19 +1,15 @@
-# main_menu.py
 import arcade
 from vector import Vector2
 from button import Button
 from save_sistem import SaveSystem
 
 class MainMenu:
-    """Главное меню игры"""
-    
     def __init__(self, screen_width: int, screen_height: int):
         self.screen_width = screen_width
         self.screen_height = screen_height
         self.save_system = SaveSystem()
         self.buttons = self._create_buttons()
         
-        # Тексты
         self.title_text = arcade.Text(
             "I LOVE THIS GAME",
             screen_width // 2, screen_height - 100,
@@ -23,7 +19,6 @@ class MainMenu:
         )
     
     def _create_buttons(self) -> list[Button]:
-        """Создаёт кнопки главного меню"""
         center_x = self.screen_width // 2
         buttons = []
         
@@ -44,18 +39,14 @@ class MainMenu:
         return buttons
     
     def handle_mouse_click(self, x: float, y: float):
-        """Обрабатывает клик мыши и возвращает действие"""
         for i, button in enumerate(self.buttons):
             if button.is_clicked(x, y):
-                if i == 0:  # "Играть с начала"
-                    print("🎮 Начинаем новую игру")
+                if i == 0: 
                     self.save_system.reset_progress()
                     return {"action": "start_game", "level_num": 1}
-                elif i == 1:  # "Уровни"
-                    print("📁 Открываем выбор уровня")
+                elif i == 1: 
                     return {"action": "open_level_select"}
-                elif i == 2:  # "Выход"
-                    print("👋 Выход из игры")
+                elif i == 2:
                     return {"action": "exit"}
         return None
     

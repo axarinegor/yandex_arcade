@@ -535,40 +535,32 @@ class GameEngine_7(arcade.Window):
 
 
 class GameEngineFactory:
-    """Фабрика для создания уровней по номеру"""
-    
     LEVEL_CLASSES = {
         1: GameEngine_1,
         2: GameEngine_2,
         4: GameEngine_4,
         7: GameEngine_7,
-        12: GameEngine_12,
-        # ... добавь остальные классы по мере создания
+        12: GameEngine_12
     }
     
     @staticmethod
     def create_level(level_num: int, title: str, screen_shape, draw, player, **kwargs):
-        """Создаёт уровень по номеру"""
         if level_num in GameEngineFactory.LEVEL_CLASSES:
             level_class = GameEngineFactory.LEVEL_CLASSES[level_num]
             
-            # Проверяем параметры конструктора
             import inspect
             params = inspect.signature(level_class.__init__).parameters
             
-            # Создаём с правильными параметрами
             if 'door_is_open' in params:
                 return level_class(title, screen_shape, draw, player, 
                                  door_is_open=kwargs.get('door_is_open', True))
             else:
                 return level_class(title, screen_shape, draw, player)
         else:
-            # Фолбэк - первый уровень
             return GameEngine_1(title, screen_shape, draw, player)
     
     @staticmethod
     def get_available_levels():
-        """Возвращает список доступных уровней"""
         return sorted(GameEngineFactory.LEVEL_CLASSES.keys())
     
 
@@ -577,7 +569,7 @@ LEVEL_MAPPING = {
     2: GameEngine_2, 
     4: GameEngine_4,
     7: GameEngine_7,
-    12: GameEngine_12,
+    12: GameEngine_12
 }
 
 

@@ -1,12 +1,9 @@
-# level_select.py
 import arcade
 from vector import Vector2
 from button import Button
 from save_sistem import SaveSystem
 
 class LevelSelect:
-    """Меню выбора уровня"""
-    
     def __init__(self, screen_width: int, screen_height: int):
         self.screen_width = screen_width
         self.screen_height = screen_height
@@ -15,7 +12,6 @@ class LevelSelect:
         self.back_button = self._create_back_button()
     
     def _create_level_buttons(self) -> list[Button]:
-        """Создаёт кнопки уровней (30 уровней)"""
         buttons = []
         buttons_per_row = 6
         button_size = 70
@@ -32,15 +28,14 @@ class LevelSelect:
             x = start_x + col * (button_size + spacing)
             y = start_y - row * (button_size + spacing)
             
-            # Определяем, открыт ли уровень
             is_unlocked = self.save_system.is_level_unlocked(level)
             
             if is_unlocked:
                 text = str(level)
-                color = (100, 180, 100)  # Зелёный - открыт
+                color = (100, 180, 100)
             else:
                 text = "?"
-                color = (100, 100, 100)  # Серый - закрыт
+                color = (100, 100, 100)
             
             button = Button(
                 text=text,
@@ -57,7 +52,6 @@ class LevelSelect:
         return buttons
     
     def _create_back_button(self) -> Button:
-        """Кнопка "Назад" """
         return Button(
             text="Назад",
             position=Vector2(80, 40),
@@ -66,29 +60,22 @@ class LevelSelect:
         )
     
     def handle_mouse_click(self, x: float, y: float):
-        """Обрабатывает клик мыши"""
-        # Проверяем кнопку "Назад"
         if self.back_button.is_clicked(x, y):
             return {"action": "back"}
         
-        # Проверяем кнопки уровней
         for button in self.level_buttons:
             if button.is_clicked(x, y) and button.is_unlocked:
-                print(f"🎯 Выбран уровень {button.level_num}")
                 return {"action": "start_game", "level_num": button.level_num}
         
         return None
     
     def draw(self):
-        """Рисует меню выбора уровня"""
-        # Фон
         arcade.draw_lbwh_rectangle_filled(
             0, 0,
             self.screen_width, self.screen_height,
             (50, 50, 70)
         )
         
-        # Заголовок
         arcade.draw_text(
             "ВЫБОР УРОВНЯ",
             self.screen_width // 2, self.screen_height - 60,
@@ -97,7 +84,6 @@ class LevelSelect:
             bold=True
         )
         
-        # Информация
         unlocked = self.save_system.get_unlocked_levels_count()
         arcade.draw_text(
             f"Открыто уровней: {unlocked}/30",
@@ -106,9 +92,7 @@ class LevelSelect:
             align="center", anchor_x="center", anchor_y="center"
         )
         
-        # Кнопки уровней
         for button in self.level_buttons:
             button.draw()
         
-        # Кнопка "Назад"
         self.back_button.draw()

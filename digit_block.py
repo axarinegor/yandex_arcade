@@ -8,11 +8,10 @@ from texts import pixel_font
 DIGIT_BLOCK_WIDTH = 65
 @dataclass
 class DigitBlock(proto.Platform):
-    """Блок с цифрой, которая меняется при клике"""
     physics: Physics
-    current_digit: int = 0  # Текущая цифра (0-9)
-    color: tuple = (213, 255, 202)  # Цвет блока
-    text_color: tuple = (0, 0, 0) # Цвет цифры
+    current_digit: int = 0 
+    color: tuple = (213, 255, 202) 
+    text_color: tuple = (0, 0, 0)
     font_size: int = DIGIT_BLOCK_WIDTH // 3
     
     def __post_init__(self):
@@ -31,20 +30,16 @@ class DigitBlock(proto.Platform):
         return self.physics.height
     
     def update(self, dt: float) -> None:
-        # Статичный блок, не обновляется
         pass
     
     def increment(self) -> None:
-        """Увеличивает цифру (0→1→2...→9→0)"""
         self.current_digit = (self.current_digit + 1) % 10
 
     
     def decrement(self) -> None:
-        """Уменьшает цифру (9→8→7...→0→9)"""
         self.current_digit = (self.current_digit - 1) % 10
     
     def set_digit(self, digit: int) -> None:
-        """Устанавливает конкретную цифру"""
         self.current_digit = max(0, min(9, digit))
     
     def to_draw(self) -> arcade.Text:
@@ -64,9 +59,9 @@ class DigitBlock(proto.Platform):
 @dataclass
 class LetterBlock:
     physics: Physics
-    letter: str = 'A'  # Текущая цифра (0-9)
-    color: tuple = (213, 255, 202)  # Цвет блока
-    text_color: tuple = (0, 0, 0) # Цвет цифры
+    letter: str = 'A'
+    color: tuple = (213, 255, 202)
+    text_color: tuple = (0, 0, 0)
     font_size: int = DIGIT_BLOCK_WIDTH // 3
 
     def __post_init__(self):
