@@ -13,7 +13,12 @@ class Sprite:
     @classmethod
     def load_raw_image(cls, path: Path | str, pivot: Vector2Int = Vector2Int.zero()) -> "Sprite":
         path = SPRITES_FOLDER / path
-        assert path.exists()
+        if not path.exists():
+            raise FileNotFoundError(
+                f"❌ Спрайт не найден: '{path}'\n"
+                f"Ожидалось: '{SPRITES_FOLDER}' содержит файлы изображений.\n"
+                f"Текущая рабочая папка: {Path.cwd()}"
+    )
 
         image = arcade.load_texture(path)
         return cls(image, Vector2Int(*image.size), pivot)

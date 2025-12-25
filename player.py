@@ -40,7 +40,6 @@ class Player(proto.Player):
                 self._is_jumping = False
         self._walk_animation.update(dt) if not self._is_jumping and self._is_moving else self._walk_animation.reset() 
     
-    @property
     def texture(self):
         if self._is_jumping:
             return self._jump_sprites.get()

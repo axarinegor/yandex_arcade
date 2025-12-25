@@ -3,7 +3,7 @@ from vector import Vector2, Vector2Int
 
 JUMP_VELOCITY = 1100
 SHAPE = Vector2Int(1250, 650)
-SPAWN_POSITION = Vector2(200, 300)
+SPAWN_POSITION = Vector2(100, 300)
 BLOCK_HEIGHT = 50
 
 @dataclass
@@ -49,9 +49,6 @@ class Physics:
     def apply_force(self, force: Vector2) -> None:
         self.velocity += force 
     
-    def apply_impulse(self, impulse: Vector2) -> None:
-        self.velocity += impulse
-    
     def jump(self, jump_strength: float = JUMP_VELOCITY) -> bool:
         if self.on_ground and self.is_active:
             self.velocity = Vector2(self.velocity.x, jump_strength)
@@ -76,7 +73,7 @@ class Physics:
             self.velocity = Vector2(self.velocity.x, -self.max_fall_speed)
         
         self.position += self.velocity * dt
-        if (self.position.y < -100):
+        if (self.position.y < -600):
             self.position = SPAWN_POSITION
     
     def check_collision(self, other: 'Physics') -> tuple[bool, str, float]:

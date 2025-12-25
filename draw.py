@@ -1,4 +1,5 @@
 import pyglet
+from digit_block import DigitBlock
 from physics import BLOCK_HEIGHT
 from vector import Vector2Int
 import arcade
@@ -16,14 +17,14 @@ class Draw:
     def player(self, player: dict) -> None:
         if not player.facing_right:
             arcade.draw_texture_rect(
-                texture=player.texture, 
+                texture=player.texture(), 
                 rect=arcade.rect.XYWH(x=player.position.x, 
                                       y=player.position.y, 
                                       width=-player.width, 
                                       height=player.height))
         else:
             arcade.draw_texture_rect(
-                texture=player.texture, 
+                texture=player.texture(), 
                 rect=arcade.rect.XYWH(x=player.position.x, 
                                       y=player.position.y, 
                                       width=player.width, 
@@ -39,7 +40,7 @@ class Draw:
         )
 
     def door(self, door: proto.Door, texture) -> None:
-        if door.width > 10:
+        if door.get_open:
             arcade.draw_texture_rect(
                     texture=texture,
                     rect=arcade.rect.LBWH(left=door.position.x - door.width // 2, 
@@ -74,9 +75,33 @@ class Draw:
                                         width=BLOCK_HEIGHT, 
                                         height=BLOCK_HEIGHT)
                 )
+
     def texts(self, texts: list[arcade.Text]) -> None:
         for text in texts:
             text.draw()
+
+    def digit_block(self, block: DigitBlock) -> None:
+        arcade.draw_lbwh_rectangle_filled(
+            block.position.x - block.width // 2, 
+            block.position.y - block.height // 2,
+            block.width, block.height,
+            block.color
+        )
+        arcade.draw_lbwh_rectangle_outline(
+            block.position.x - block.width // 2, 
+            block.position.y - block.height // 2,
+            block.width, block.height,
+            (98, 181, 65), 3
+        )
+        
+        block.to_draw().draw()
+
+    def level_4(self) -> None:
+        color = (77, 123, 34)
+        arcade.draw_triangle_outline(470, 150, 520, 150, 495, 200, color, 4)
+        arcade.draw_circle_outline(590, 172, 30, color, 4)
+        arcade.draw_lbwh_rectangle_outline(670, 140, 50, 60, color, 4)
+        #arcade.draw_triangle_outline(470, 150, 520, 150, 495, 200, arcade.color.BLACK, 4)
 
 
 

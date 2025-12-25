@@ -66,3 +66,59 @@ class Door(ABC):
     @abstractmethod
     def update(self, dt: float) -> None:
         ...
+
+
+
+'''
+class Physics:
+    @abstractmethod
+    @property
+    def bounds(self) -> tuple[float, float, float, float]:
+        ...
+    
+    @abstractmethod
+    @property
+    def left(self) -> float:
+        ...
+    
+    @abstractmethod
+    @property
+    def right(self) -> float:
+        ...
+    
+    @abstractmethod
+    @property
+    def bottom(self) -> float:
+        ...
+    
+    @abstractmethod
+    @property
+    def top(self) -> float:
+        ...
+    
+    @abstractmethod
+    def apply_force(self, force: Vector2) -> None:
+        ...
+    
+    @abstractmethod
+    def jump(self, jump_strength: float = None) -> bool:
+        ...
+    
+    @abstractmethod
+    def move(self, direction: Vector2, speed: float) -> None:
+        ...
+    
+    @abstractmethod
+    def update(self, dt: float) -> None:
+        ...
+    
+    @abstractmethod
+    def check_collision(self, other: 'Physics') -> tuple[bool, str, float]:
+        ...
+    
+    @abstractmethod
+    def resolve_collision(self, other: 'Physics', side: str, overlap: float) -> None:
+        ...
+
+
+'''
